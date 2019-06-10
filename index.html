@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        computerPlay = () => {
+            let Arr = ['Rock', 'Paper', 'Scissors'];
+             return Arr[Math.floor(Math.random() * 3)];
+        }
+
+        playRound = (playerSelection, computerSelection) => {
+
+            let playerChoice = playerSelection.charAt(0).toUpperCase() 
+            + playerSelection.substring(1, playerSelection.length)
+
+            console.log("Player: " + playerChoice);
+            console.log("Computer: " + computerSelection)
+
+            if(playerChoice == computerSelection){
+                return 2;
+            }
+            if(computerSelection == 'Rock'){
+                if(playerChoice == 'Paper'){
+                    // return "You Won! " +  playerChoice + " beats " + computerSelection
+                    return 1;
+                }
+                else{
+                    // return "You Lose! " +  computerSelection + "beats" + playerChoice
+                    return 0;
+                }
+            }
+            if(computerSelection == 'Paper'){
+                if(playerChoice == 'Scissors'){
+                    // return "You Won! " +  playerChoice + " beats " + computerSelection
+                    return 1;
+                }
+                else{
+                    // return "You Lose! " +  computerSelection + "beats" + playerChoice
+                    return 0;
+                }
+            }
+             if(computerSelection == 'Scissors'){
+                if(playerChoice == 'Rock'){
+                    // return "You Won! " +  playerChoice + " beats " + computerSelection
+                    return 1;
+                }
+                else{
+                    // return "You Lose! " +  computerSelection + "beats" + playerChoice
+                    return 0;
+                }
+            }
+        }   
+
+        game = () => {
+            let playerScore = 0;
+            let computerScore = 0;
+
+            let results = playRound(prompt("Enter Rock, Paper, or Scissors"), computerPlay());
+
+            if(playerScore == 5){
+                console.log("You won the game!")
+                playerScore = 0;
+                computerScore = 0;
+            }
+            else if(computerScore == 5){
+                console.log("The computer won the game!")
+                playerScore = 0;
+                computerScore = 0;
+            }
+
+
+            if(results == 1){
+                playerScore = playerScore + 1;
+                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore)
+                return  console.log("You won this round!")
+
+            }
+            else if(results == 0){
+                computerScore += 1;
+                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore)
+                return  console.log("You lose this round!")
+            }
+            else if(results == 2){
+                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore)
+                return  console.log("Draw round!")
+            }
+            
+        }
+        game();
+    </script>
+</body>
+</html>
