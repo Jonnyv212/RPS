@@ -7,13 +7,58 @@
     <title>Document</title>
 </head>
 <body>
+    <button onclick="playRound('Rock', computerPlay())">Rock</button>
+    <button onclick="playRound('Paper', computerPlay())">Paper</button>
+    <button onclick="playRound('Scissors', computerPlay())">Scissors</button>
+
+    <div id="scoreContainer">
+        SCORE: <div id ="score"></div>
+    </div>
+    <div id="container"></div>
     <script>
         computerPlay = () => {
             let Arr = ['Rock', 'Paper', 'Scissors'];
              return Arr[Math.floor(Math.random() * 3)];
         }
 
+        resultColors = (styles, round) => {
+
+            //Draw round
+            if(round == 0){
+                styles.style.background = 'black';
+                styles.style.border = '.4rem solid';
+                styles.style.borderColor = '#ffc600';
+                styles.style.borderRadius=  '.5rem';
+                styles.style.textShadow = '0 0 .5rem yellow';
+                styles.style.color = '#ffc600';
+            }
+            //Winner round
+            else if(round == 1)
+            {
+                styles.style.background = 'black';
+                styles.style.border = '.4rem solid';
+                styles.style.borderColor = '#18DC1F';
+                styles.style.borderRadius=  '.5rem';
+                styles.style.textShadow = '0 0 .5rem green';
+                styles.style.color = 'green';
+            }
+            //Loser round
+            else if (round == 2)
+            {
+                styles.style.background = 'black';
+                styles.style.border = '.4rem solid';
+                styles.style.borderColor = 'red';
+                styles.style.borderRadius=  '.5rem';
+                styles.style.textShadow = '0 0 .5rem red';
+                styles.style.color = 'red';
+            }
+        }
         playRound = (playerSelection, computerSelection) => {
+            const container = document.querySelector('#container')
+            const results = document.createElement('div');
+            results.classList.add('results');
+            
+            
 
             let playerChoice = playerSelection.charAt(0).toUpperCase() 
             + playerSelection.substring(1, playerSelection.length)
@@ -22,46 +67,60 @@
             console.log("Computer: " + computerSelection)
 
             if(playerChoice == computerSelection){
-                return 2;
+                resultColors(results, 0);
+                results.textContent = 'Draw round!';
+                return container.appendChild(results);
             }
             if(computerSelection == 'Rock'){
                 if(playerChoice == 'Paper'){
-                    // return "You Won! " +  playerChoice + " beats " + computerSelection
-                    return 1;
+                    resultColors(results, 1);
+                    results.textContent = "You Won! " +  playerChoice + " beats " + computerSelection;
+                    game(1);
+                    return container.appendChild(results);
                 }
                 else{
-                    // return "You Lose! " +  computerSelection + "beats" + playerChoice
-                    return 0;
+                    resultColors(results, 2);
+                    results.textContent = "You Lose! " +  computerSelection + " beats " + playerChoice
+                    return container.appendChild(results);
                 }
             }
             if(computerSelection == 'Paper'){
                 if(playerChoice == 'Scissors'){
-                    // return "You Won! " +  playerChoice + " beats " + computerSelection
-                    return 1;
+                    resultColors(results, 1);
+                    results.textContent = "You Won! " +  playerChoice + " beats " + computerSelection
+                    game(1);
+                    return container.appendChild(results);
                 }
                 else{
-                    // return "You Lose! " +  computerSelection + "beats" + playerChoice
-                    return 0;
+                    resultColors(results, 2);
+                    results.textContent = "You Lose! " +  computerSelection + " beats " + playerChoice
+                    return container.appendChild(results);
                 }
             }
              if(computerSelection == 'Scissors'){
                 if(playerChoice == 'Rock'){
-                    // return "You Won! " +  playerChoice + " beats " + computerSelection
-                    return 1;
+                    resultColors(results, 1);
+                    results.textContent = "You Won! " +  playerChoice + " beats " + computerSelection
+                    game(1);
+                    return container.appendChild(results);
                 }
                 else{
-                    // return "You Lose! " +  computerSelection + "beats" + playerChoice
-                    return 0;
+                    resultColors(results, 2);
+                    results.textContent = "You Lose! " +  computerSelection + " beats " + playerChoice
+                    return container.appendChild(results);
                 }
             }
         }   
 
-        game = () => {
-            let playerScore = 0;
-            let computerScore = 0;
+        // buttonRock = document.getElementById("btnRock").addEventListener("click", playRound("Rock",computerPlay()));
+        // buttonPaper = document.getElementById("btnPaper").addEventListener("click", playRound("Paper",computerPlay()));
+        // buttonScissors = document.getElementById("btnScissors").addEventListener("click", playRound("Scissors",computerPlay()));
+        let playerScore = 0;
+        let computerScore = 0;
+        game = (scoring) => {
 
-            let results = playRound(prompt("Enter Rock, Paper, or Scissors"), computerPlay());
-
+            // let results = playRound(prompt("Enter Rock, Paper, or Scissors"), computerPlay());
+            
             if(playerScore == 5){
                 console.log("You won the game!")
                 playerScore = 0;
@@ -74,24 +133,11 @@
             }
 
 
-            if(results == 1){
-                playerScore = playerScore + 1;
-                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore)
-                return  console.log("You won this round!")
-
+            if(scoring == 1){
+                playerScore++;
+            document.getElementById("score").innerHTML=(playerScore);
             }
-            else if(results == 0){
-                computerScore += 1;
-                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore)
-                return  console.log("You lose this round!")
-            }
-            else if(results == 2){
-                console.log("Player Score: " + playerScore + " Computer Score: " + computerScore)
-                return  console.log("Draw round!")
-            }
-            
         }
-        game();
     </script>
 </body>
 </html>
